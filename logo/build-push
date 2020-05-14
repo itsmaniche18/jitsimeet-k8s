@@ -1,2 +1,2 @@
-docker build -t ramalingam81/jitsi-web-logo .
-docker push ramalingam81/jitsi-web-logo
+docker build -t ramalingam81/web .
+docker push ramalingam81/web

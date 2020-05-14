@@ -4,11 +4,14 @@ metadata:
   labels:
     service: jicofo
   name: jicofo
-  namespace: test
+  namespace: jitsi
 spec:
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
   template:
     metadata:
       labels:
@@ -17,12 +20,12 @@ spec:
       containers:
       - env:
         - name: XMPP_SERVER
-          value: 10.100.237.51
+          value: 10.100.198.14
 #value: prosody clusterip          
         - name: XMPP_DOMAIN
-          value: test.devopsk8s.cf
+          value: jitsi.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.test.devopsk8s.cf
+          value: auth.jitsi.devopsk8s.cf
         - name: JICOFO_COMPONENT_SECRET
 #          value: s3cr37
           value: password
@@ -31,7 +34,7 @@ spec:
         - name: JVB_BREWERY_MUC
           value: jvbbrewery
         - name: XMPP_INTERNAL_MUC_DOMAIN
-          value: internal-muc.test.devopsk8s.cf
+          value: internal-muc.jitsi.devopsk8s.cf
         - name: JICOFO_AUTH_PASSWORD
           value: password
 #          value: passw0rd

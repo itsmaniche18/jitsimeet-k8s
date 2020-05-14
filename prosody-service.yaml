@@ -4,7 +4,7 @@ metadata:
   labels:
     service: prosody
   name: prosody
-  namespace: test
+  namespace: jitsi
 spec:
   ports:
   - name: "5222"

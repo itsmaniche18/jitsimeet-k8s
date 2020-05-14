@@ -4,17 +4,20 @@ metadata:
   labels:
     service: jvb
   name: jvb-tcp-udp
-  namespace: test
+  namespace: jitsi
 spec:
   ports:
   - name: "4443"
-    port: 4443
-    targetPort: 4443
+    port: 31110
+    targetPort: 31110
+    nodePort: 31110
   - name: "10000"
-    port: 10000
+    port: 32220
     protocol: UDP
-    targetPort: 10000
+    targetPort: 32220
+    nodePort: 32220
   selector:
     service: jvb
+  type: NodePort
 status:
   loadBalancer: {}

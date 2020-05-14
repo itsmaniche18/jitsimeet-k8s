@@ -4,11 +4,14 @@ metadata:
   labels:
     service: jvb
   name: jvb
-  namespace: test
+  namespace: jitsi
 spec:
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%    
   template:
     metadata:
       labels:
@@ -17,17 +20,17 @@ spec:
       containers:
       - env:
         - name: JVB_PORT
-          value: "10000"
+          value: "32220"
         - name: XMPP_SERVER
-          value: 10.100.237.51
+          value: 10.100.198.14
 #          value: <IP address of the prosody ClusterIP service>
         - name: DOCKER_HOST_ADDRESS
-          value: 10.100.21.4
+          value: 10.100.210.64
 #          value:<ClusterIP of jvb service exposing the UDP:10000 TCP:4443 ports of the videobridge>
         - name: XMPP_DOMAIN
-          value: test.devopsk8s.cf
+          value: jitsi.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.test.devopsk8s.cf
+          value: auth.jitsi.devopsk8s.cf
         - name: JVB_COMPONENT_SECRET
 #          value: s3cr3t
           value: password
@@ -43,19 +46,19 @@ spec:
         - name: JVB_TCP_HARVESTER_DISABLED
           value: "true"
         - name: JVB_TCP_PORT
-          value: "4443"
+          value: "31110"
         - name: JVB_AUTH_USER
           value: jvb
         - name: JVB_BREWERY_MUC
           value: jvbbrewery
         - name: XMPP_INTERNAL_MUC_DOMAIN
-          value: internal-muc.test.devopsk8s.cf
+          value: internal-muc.jitsi.devopsk8s.cf
         image: jitsi/jvb
         name: jvb
         ports:
-        - containerPort: 10000
+        - containerPort: 32220
           protocol: UDP
-        - containerPort: 4443
+        - containerPort: 31110
         resources:
           requests:
             memory: "300Mi"

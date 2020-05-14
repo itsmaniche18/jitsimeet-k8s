@@ -3,12 +3,15 @@ kind: Deployment
 metadata:
   labels:
     service: prosody
-  namespace: test
+  namespace: jitsi
   name: prosody
 spec:
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
   template:
     metadata:
       labels:
@@ -17,18 +20,18 @@ spec:
       containers:
       - env:
         - name: XMPP_DOMAIN
-          value: test.devopsk8s.cf
+          value: jitsi.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.test.devopsk8s.cf
+          value: auth.jitsi.devopsk8s.cf
         - name: XMPP_GUEST_DOMAIN
-          value: guest.test.devopsk8s.cf
+          value: guest.jitsi.devopsk8s.cf
         - name: XMPP_MUC_DOMAIN
-          value: muc.test.devopsk8s.cf
+          value: muc.jitsi.devopsk8s.cf
         - name: JICOFO_COMPONENT_SECRET
           value: password
 #          value: s3cr37
         - name: XMPP_RECORDER_DOMAIN
-          value: recorder.test.devopsk8s.cf
+          value: recorder.jitsi.devopsk8s.cf
         - name: JVB_COMPONENT_SECRET
 #          value: s3cr3t
           value: password
@@ -43,7 +46,7 @@ spec:
           value: password
 #          value: jPAtowFU
         - name: XMPP_INTERNAL_MUC_DOMAIN
-          value: internal-muc.test.devopsk8s.cf
+          value: internal-muc.jitsi.devopsk8s.cf
         - name: TZ
           value: Asia/Kolkata
         image: jitsi/prosody
