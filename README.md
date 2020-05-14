@@ -98,30 +98,37 @@ kubectl apply -f prosody-service.yaml
 	#          value: <External IP address of the LoadBalancer service exposing the UDP:10000 	TCP:4443 ports of the videobridge>
 	---------------------------
 	kubectl apply -f jvb-deployment.yaml 
-root@kubectl:~/jitsimeet-k8s# kubectl get all -n test
+
+root@kubectl:~/delete# kubectl get all -n test
 NAME                           READY   STATUS    RESTARTS   AGE
-pod/jicofo-77689679c5-8mrth    1/1     Running   0          9m46s
-pod/jvb-855b4b5779-bdzd9       1/1     Running   0          71s
-pod/prosody-866c8cf968-bsg46   1/1     Running   0          12m
-pod/web-77959d8f4b-2nz64       1/1     Running   0          15m
+pod/jicofo-596b54d48c-fl6rd    1/1     Running   0          19h
+pod/jvb-57cc974b68-s4b75       1/1     Running   0          15h
+pod/prosody-85d4c754bc-qjn5s   1/1     Running   0          24h
+pod/web-6fddddc448-gltm5       1/1     Running   0          23h
 
 NAME                  TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)                               AGE
-service/jvb-tcp-udp   ClusterIP   10.100.1.49      <none>        4443/TCP,10000/UDP                    6m28s
-service/prosody       ClusterIP   10.100.45.19     <none>        5222/TCP,5280/TCP,5347/TCP,5269/TCP   12m
-service/web           ClusterIP   10.100.124.255   <none>        80/TCP,443/TCP                        15m
+service/jvb-tcp-udp   NodePort    10.100.210.15    <none>        30000:30000/TCP,31000:31000/UDP       7d
+service/prosody       ClusterIP   10.100.189.114   <none>        5222/TCP,5280/TCP,5347/TCP,5269/TCP   7d
+service/web           ClusterIP   10.100.147.92    <none>        80/TCP,443/TCP                        7d
 
 NAME                      READY   UP-TO-DATE   AVAILABLE   AGE
-deployment.apps/jicofo    1/1     1            1           9m46s
-deployment.apps/jvb       1/1     1            1           71s
-deployment.apps/prosody   1/1     1            1           12m
-deployment.apps/web       1/1     1            1           15m
+deployment.apps/jicofo    1/1     1            1           19h
+deployment.apps/jvb       1/1     1            1           19h
+deployment.apps/prosody   1/1     1            1           24h
+deployment.apps/web       1/1     1            1           23h
 
 NAME                                 DESIRED   CURRENT   READY   AGE
-replicaset.apps/jicofo-77689679c5    1         1         1       9m46s
-replicaset.apps/jvb-855b4b5779       1         1         1       71s
-replicaset.apps/prosody-866c8cf968   1         1         1       12m
-replicaset.apps/web-77959d8f4b       1         1         1       15m
-root@kubectl:~/jitsimeet-k8s# 
+replicaset.apps/jicofo-596b54d48c    1         1         1       19h
+replicaset.apps/jvb-57cc974b68       1         1         1       15h
+replicaset.apps/jvb-8964dc948        0         0         0       19h
+replicaset.apps/jvb-b5fd9d666        0         0         0       16h
+replicaset.apps/prosody-85d4c754bc   1         1         1       24h
+replicaset.apps/web-6fddddc448       1         1         1       23h
+
+
+Note: expose jvb node ports to public in security group.
+
+
 ---------------------------------
     • setup kubernetes ingress for jitsi web service
 	kubectl apply -f web-prod-ingress.yaml
