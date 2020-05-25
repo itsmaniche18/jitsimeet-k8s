@@ -9,9 +9,9 @@ spec:
   replicas: 1
   strategy:
     type: RollingUpdate
-   rollingUpdate:
-     maxSurge: 25%
-     maxUnavailable: 25% 
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25% 
   template:
     metadata:
       labels:
@@ -31,6 +31,20 @@ spec:
           value: muc.jitsi.devopsk8s.cf
         - name: TZ
           value: Asia/Kolkata
+        - name: JIBRI_BREWERY_MUC 
+          value: jibribrewery
+        - name: JIBRI_PENDING_TIMEOUT
+          value: "90"
+        - name: JIBRI_XMPP_USER
+          value: jibri
+        - name: JIBRI_XMPP_PASSWORD
+          value: password
+        - name: JIBRI_RECORDER_USER
+          value: recorder
+        - name: JIBRI_RECORDER_PASSWORD
+          value: password
+        - name: ENABLE_RECORDING
+          value: "1"
         image: ramalingam81/jitsi-web-logo
 #        image: ramalingam81/web
         name: web

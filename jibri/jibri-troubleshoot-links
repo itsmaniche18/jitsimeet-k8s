@@ -1,0 +1,11 @@
+jibri getting same errors
+https://github.com/jitsi/jibri/issues/193
+
+jibri prosody instead of 10.100.X.X
+https://github.com/jitsi/jibri/issues/231
+
+same logs in jibri
+https://community.jitsi.org/t/authentication-request-from-jibri-vm-to-dockerized-prosody-failing-connection-timed-out/17808
+
+
+org.jitsi.jibri.selenium.JibriSelenium.onSeleniumStateChange() Transitioning from state Starting up to Error: SESSION Failed to join call

@@ -1,0 +1,2 @@
+docker build -t ramalingam81/jibri-delete:wojibri .
+docker push ramalingam81/jibri-delete:wojibri

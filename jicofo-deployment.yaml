@@ -38,6 +38,10 @@ spec:
         - name: JICOFO_AUTH_PASSWORD
           value: password
 #          value: passw0rd
+        - name: JIBRI_BREWERY_MUC
+          value: jibribrewery
+        - name: JIBRI_PENDING_TIMEOUT
+          value: "90"
         - name: TZ
           value: Asia/Kolkata
         image: jitsi/jicofo

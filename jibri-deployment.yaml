@@ -1,0 +1,76 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    service: jibri
+  name: jibri
+  namespace: jitsi
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        service: jibri
+    spec:
+      volumes:
+        - name: dev-shm
+          hostPath:
+            path: /dev/shm
+        - name: dev-snd
+          hostPath:
+            path: /dev/snd      
+      containers:
+      - env:
+        - name: XMPP_SERVER
+          value: 10.100.189.114
+#value: prosody clusterip          
+        - name: XMPP_DOMAIN
+          value: jitsi.devopsk8s.cf
+        - name: XMPP_AUTH_DOMAIN
+          value: auth.jitsi.devopsk8s.cf
+        - name: XMPP_INTERNAL_MUC_DOMAIN
+          value: internal-muc.jitsi.devopsk8s.cf
+        - name: XMPP_RECORDER_DOMAIN
+          value: recorder.jitsi.devopsk8s.cf
+        - name: JIBRI_XMPP_USER
+          value: jibri
+        - name: JIBRI_XMPP_PASSWORD
+          value: password
+        - name: JIBRI_BREWERY_MUC
+          value: Jibribrewery
+        - name: JIBRI_RECORDER_USER
+          value: recorder
+        - name: JIBRI_RECORDER_PASSWORD
+          value: password
+        - name: JIBRI_RECORDING_DIR
+#          value: /config/recordings
+          value: /tmp/recordings
+        - name: JIBRI_FINALIZE_RECORDING_SCRIPT_PATH
+#          value: /config/finalize.sh
+          value: /opt/jibri/resources/finalize_recording.sh
+        - name: JIBRI_STRIP_DOMAIN_JID
+          value: conference
+#        - name: JIBRI_LOGS_DIR
+#          value: /config/logs
+        - name: DISPLAY
+          value: :0
+          #        - name: TZ
+          #          value: Asia/Kolkata
+        image: ramalingam81/jibri-test:init
+        name: jibri
+        volumeMounts:
+          - mountPath: /dev/shm
+            name: dev-shm
+          - mountPath: /dev/snd
+            name: dev-snd
+        resources:
+          requests:
+            memory: "200Mi"
+            cpu: "200m"
+          limits:
+            memory: "1000Mi"
+            cpu: "1000m"                
+      restartPolicy: Always
+status: {}

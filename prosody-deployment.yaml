@@ -32,6 +32,14 @@ spec:
 #          value: s3cr37
         - name: XMPP_RECORDER_DOMAIN
           value: recorder.jitsi.devopsk8s.cf
+        - name: JIBRI_XMPP_USER
+          value: jibri  
+        - name: JIBRI_XMPP_PASSWORD
+          value: password
+        - name: JIBRI_RECORDER_USER
+          value: recorder
+        - name: JIBRI_RECORDER_PASSWORD
+          value:  password
         - name: JVB_COMPONENT_SECRET
 #          value: s3cr3t
           value: password
