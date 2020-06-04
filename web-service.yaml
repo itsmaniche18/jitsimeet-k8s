@@ -4,7 +4,7 @@ metadata:
   labels:
     service: web
   name: web
-  namespace: jitsi
+  namespace: minikube
 spec:
   ports:
   - name: "http"
@@ -15,3 +15,4 @@ spec:
     targetPort: 443
   selector:
     service: web
+  type: NodePort

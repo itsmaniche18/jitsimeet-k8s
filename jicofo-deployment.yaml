@@ -1,11 +1,15 @@
-apiVersion: extensions/v1beta1
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     service: jicofo
   name: jicofo
-  namespace: jitsi
+  namespace: minikube
 spec:
+  selector:
+    matchLabels:
+      service: jicofo        
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -20,12 +24,12 @@ spec:
       containers:
       - env:
         - name: XMPP_SERVER
-          value: 10.100.198.14
+          value: 10.111.182.216
 #value: prosody clusterip          
         - name: XMPP_DOMAIN
-          value: jitsi.devopsk8s.cf
+          value: minikube.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.jitsi.devopsk8s.cf
+          value: auth.minikube.devopsk8s.cf
         - name: JICOFO_COMPONENT_SECRET
 #          value: s3cr37
           value: password
@@ -34,7 +38,7 @@ spec:
         - name: JVB_BREWERY_MUC
           value: jvbbrewery
         - name: XMPP_INTERNAL_MUC_DOMAIN
-          value: internal-muc.jitsi.devopsk8s.cf
+          value: internal-muc.minikube.devopsk8s.cf
         - name: JICOFO_AUTH_PASSWORD
           value: password
 #          value: passw0rd

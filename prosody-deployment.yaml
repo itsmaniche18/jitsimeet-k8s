@@ -1,11 +1,15 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
+#apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   labels:
     service: prosody
-  namespace: jitsi
+  namespace: minikube
   name: prosody
 spec:
+  selector:
+    matchLabels:
+      service: prosody        
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -20,18 +24,18 @@ spec:
       containers:
       - env:
         - name: XMPP_DOMAIN
-          value: jitsi.devopsk8s.cf
+          value: minikube.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.jitsi.devopsk8s.cf
+          value: auth.minikube.devopsk8s.cf
         - name: XMPP_GUEST_DOMAIN
-          value: guest.jitsi.devopsk8s.cf
+          value: guest.minikube.devopsk8s.cf
         - name: XMPP_MUC_DOMAIN
-          value: muc.jitsi.devopsk8s.cf
+          value: muc.minikube.devopsk8s.cf
         - name: JICOFO_COMPONENT_SECRET
           value: password
 #          value: s3cr37
         - name: XMPP_RECORDER_DOMAIN
-          value: recorder.jitsi.devopsk8s.cf
+          value: recorder.minikube.devopsk8s.cf
         - name: JIBRI_XMPP_USER
           value: jibri  
         - name: JIBRI_XMPP_PASSWORD
@@ -54,7 +58,7 @@ spec:
           value: password
 #          value: jPAtowFU
         - name: XMPP_INTERNAL_MUC_DOMAIN
-          value: internal-muc.jitsi.devopsk8s.cf
+          value: internal-muc.minikube.devopsk8s.cf
         - name: TZ
           value: Asia/Kolkata
         image: jitsi/prosody

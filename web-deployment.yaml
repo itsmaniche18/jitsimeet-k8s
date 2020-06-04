@@ -1,11 +1,15 @@
-apiVersion: extensions/v1beta1
+#apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     service: web
   name: web
-  namespace: jitsi
+  namespace: minikube
 spec:
+  selector:
+    matchLabels:
+      service: web
   replicas: 1
   strategy:
     type: RollingUpdate
@@ -22,13 +26,13 @@ spec:
         - name: JICOFO_AUTH_USER
           value: focus
         - name: XMPP_DOMAIN
-          value: jitsi.devopsk8s.cf
+          value: minikube.devopsk8s.cf
         - name: XMPP_AUTH_DOMAIN
-          value: auth.jitsi.devopsk8s.cf
+          value: auth.minikube.devopsk8s.cf
         - name: XMPP_BOSH_URL_BASE
           value: http://prosody:5280
         - name: XMPP_MUC_DOMAIN
-          value: muc.jitsi.devopsk8s.cf
+          value: muc.minikube.devopsk8s.cf
         - name: TZ
           value: Asia/Kolkata
         - name: JIBRI_BREWERY_MUC 

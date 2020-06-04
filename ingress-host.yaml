@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: web-ingress
+  namespace: minikube
+spec:
+  tls:
+  - secretName: lets-encrypt
+  rules:
+  - host: minikube.devopsk8s.cf
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 80
